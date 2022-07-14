@@ -1,0 +1,113 @@
+#!/bin/bash
+
+deterTrailer()
+{
+getopts ":ta" option
+
+case $option in
+	t) # Only time + milliseconds
+		tput civis
+		printf "\n"
+		while true; do
+			printf "  $(date +"%T.%.3s")\033[0K\r" "$(date +"%N")"
+			sleep 0.0001
+		done
+		;;
+	
+	a) # Comprehensive time + milliseconds
+		tput civis
+		printf "\n"
+		while true; do
+			printf "  $(date +"%A - %d %B %Y\n  Day: %j, Week: %V\n  %T.%.3s GMT%:::z (%Z)")\033[0K\033[2A\r" "$(date +"%N")"
+			sleep 0.0001
+		done;;
+
+	\?) # Default with milliseconds
+		tput civis
+		printf "\n"
+		while true; do
+			printf "  $(date +"%d %b - %T.%.3s")\033[0K\r" "$(date +"%N")"
+			sleep 0.0001
+		done
+		;;
+
+esac
+}
+
+deterSwitches() 
+{
+getopts ":htdma" option
+
+case $option in
+	h) # Display help
+		printf """
+Clock is a small utility that outputs dynamic time to the terminal.
+
+Useful for checking time settings on servers or your own machine.
+
+Usage: clock
+   or: clock [OPTION]
+
+
+Make use of these switches to modify clock's behaviour:
+
+  -h		display help
+  -t		display time only
+  -d		display full date only
+  -a		display comprehensive time data
+
+  -m		displays default output but with milliseconds
+  -mt 		display only time but with milliseconds
+  -ma		display comprehensive time data with milliseconds
+
+Ctrl-C to exit
+
+""";;
+
+	t) # Display time only
+		tput civis
+		printf "\n"
+		while true; do
+			printf "  $(date +"%T")\033[0K\r"
+			sleep 0.01
+		done
+		;;
+
+	d) # Display date only
+		printf "\n  $(date +"%A - %d %B %Y")\n\n";;
+
+	a) # Display comprehensive time
+		tput civis
+		printf "\n"
+		while true; do
+			printf "  $(date +"%A - %d %B %Y\n  Day: %j, Week: %V\n  %T GMT%:::z (%Z)")\033[0K\033[2A\r"
+			sleep 0.01
+		done;;
+
+	m) # Display milliseconds a trailing option
+		deterTrailer "$@";;
+
+	\?) # Display default
+		tput civis
+		printf "\n"
+		while true; do
+			printf "  $(date +"%d %b - %T")\033[0K\r"
+			sleep 0.01
+		done
+		;;
+
+esac
+
+}
+
+cleanUp() 
+{
+
+printf " \n \n \n"
+tput cnorm
+exit 0
+
+}
+
+trap cleanUp INT
+deterSwitches "$@"
