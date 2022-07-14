@@ -1,7 +1,8 @@
 # Clock
  Lightweight bash utility to display dynamic system time to shell
  
-https://user-images.githubusercontent.com/66677830/179059824-584b55ae-0cff-40ef-8a19-f9f21acb324c.mp4
+![clock showdown](https://user-images.githubusercontent.com/66677830/179060716-9d0bf362-c6a2-4d3a-a7ed-1de33c6c3882.gif)
+
 
 
 # Setup
