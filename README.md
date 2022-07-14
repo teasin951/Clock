@@ -12,4 +12,6 @@ https://user-images.githubusercontent.com/66677830/179059824-584b55ae-0cff-40ef-
 # Usage
  Type `clock` into your terminal and enjoy!
  
+ `Ctrl-C` to stop the clock.
+ 
  You can modify clock's behaviour using switches. Check out `clock -h` for more info.
